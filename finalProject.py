@@ -3,7 +3,6 @@
 Created on Tue May 26 20:18:22 2020
 
 @author: ankit
-duplicates primary 1, 3770
 """
 
 
