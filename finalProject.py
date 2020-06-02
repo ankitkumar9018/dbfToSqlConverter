@@ -12,9 +12,9 @@ import dbfread
 import numpy as np
 import datetime
 
-test = dbfread.open('G:/work/code/converter/project/SUCHPRO.DBF')
+test = dbfread.open('G:/work/code/converter/project/PRO_DRU_Clip.DBF')
 rawData = test[0].keys()
-test.pop(0)
+#test.pop(0)
 
 #%%
 headerList =[]
@@ -23,8 +23,7 @@ typesListVariables = []
 ntype = True
 typesList = []
 
-#%%
-
+#%% this is only specific to my code as I was not able to to read memo type file so I was reading it through excel file
 import pandas as pd
 data = pd.read_excel ('G:/work/code/converter/project/project.XLS') 
 df = pd.DataFrame(data, columns= ["Unnamed: 31"])
@@ -130,19 +129,11 @@ for typeVariable in typesList:
 baseCreationQuery = baseCreationQuery + " (" + queryTemp + ")"
 
 #%%table creation
-
-## creating a table called 'users' in the 'datacamp' database
-#cursor.execute("CREATE TABLE testProject (name VARCHAR(255), user_name VARCHAR(255))")
-
-#statement = """INSERT INTO menu(name, price) VALUES(%s, %s)""" %(fish, price)
-
 cursor.execute("DROP TABLE testProject")
 cursor.execute(baseCreationQuery)
 
 #%%
-
 ## defining the Query
-
 insertQueryFinal = "INSERT INTO testProject"
 insertQueryHeaderName = ""
 insertQueryValueName = ""
@@ -161,8 +152,6 @@ insertQueryFinal = insertQueryFinal + " (" + insertQueryHeaderName + ") VALUES (
 
 ## executing the query with values
 cursor.executemany(insertQueryFinal, tableList)
-
-## to make final output we have to run the 'commit()' method of the database object
 db.commit()
 
 print(cursor.rowcount, "records inserted")
